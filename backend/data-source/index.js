@@ -1,3 +1,5 @@
+const {nanoid} = require('nanoid');
+
 const startupList = [
   {
     id: 1,
@@ -80,4 +82,6 @@ const stepList = [
   },
 ];
 
-module.exports = { startupList, stageList, stepList };
+const startupProgress = [];
+
+module.exports = { startupList, stageList, stepList , startupProgress};

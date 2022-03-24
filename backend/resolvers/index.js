@@ -1,4 +1,4 @@
-let { startupList, stageList, stepList } = require("../data-source");
+let { startupList, stageList, stepList , startupProgress } = require("../data-source");
 const { nanoid } = require("nanoid");
 
 const resolvers = {
@@ -35,11 +35,23 @@ const resolvers = {
     removeStartup: (parent, { id }) => {
       return startupList = startupList.filter((item) => item.id != id);
     },
-    createStartupProgress: ({ data }) => {},
-    removeStartupProgress: ({ id }) => {},
+    createStartupProgress: (parent,{ data }) => {
+        console.log(data);
+        let newData = { ...data, id: nanoid() };
+        startupProgress.push(newData);
+        return newData;  
+    },
+    removeStartupProgress: (parent,{ id }) => {
+        return startupProgress = startupProgress.filter((item) => item.id != id);
+    },
   },
 
   Startup: {},
+  Step:{
+      stage:(parent,arg,context)=>{
+          return stageList.find(item=>item.id == parent.stage_id)
+      }
+  }
 };
 
 module.exports = resolvers;
