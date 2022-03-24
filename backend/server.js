@@ -4,7 +4,7 @@ const schema = require("./schema");
 const app = express();
 const { graphqlHTTP } = require("express-graphql");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
-// const {} = require('@graphql-tools/utils');
+// const {ge} = require('@graphql-tools/utils');
 
 const root = resolvers;
 const PORT = 9090;

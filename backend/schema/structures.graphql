@@ -1,0 +1,75 @@
+   
+   type Startup{
+       id: String
+       logo: String!
+       name: String!
+       description: String!
+       date_established: String!,
+       progress: [StartupProgress]
+   }
+
+   type Stage{
+     id: String
+     name: String!
+   }
+
+   type Step{
+     id: String
+     stage_id: Int!
+     name: String!
+     stage: Stage
+   }
+
+   type StartupProgress{
+      id: String
+      startup_id: Int!
+      step_id: Int!
+      step: Step
+   }
+
+   enum StartupType{
+       SMALL
+       LARGE
+       MIDIUM
+   }
+
+   input StartupInput{
+    id: String
+    logo: String
+    name: String!
+    description: String
+    date_established: String
+   }
+
+   input StartupProgressInput{
+      id: String
+      startup_id: Int!
+      step_id: Int!
+   }
+
+   type Query{
+       
+       startups:[Startup]
+       startup(id: String):Startup
+
+       stages:[Stage]
+       stage(id: String):Stage
+
+       steps:[Step]
+       step(id: String):Step
+   }
+
+
+
+   type Mutation{
+       
+       createStartup(data: StartupInput):Startup
+       updateStartup(id: String,data: StartupInput):Startup
+       removeStartup(id: String):[Startup]
+
+       createStartupProgress(data: StartupProgressInput): StartupProgress
+       removeStartupProgress(id: String): [StartupProgress]
+
+   }
+
+   

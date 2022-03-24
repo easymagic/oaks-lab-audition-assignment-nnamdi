@@ -1,37 +1,45 @@
-const { startupList, stageList, stepList } = require("../data-source");
+let { startupList, stageList, stepList } = require("../data-source");
+const { nanoid } = require("nanoid");
 
 const resolvers = {
   Query: {
-    fetchStartups: () => {
-      return startupList;
-    },
+    startups: () => startupList,
+    startup: ({ id }) => startupList.find((item) => item.id == id),
 
-    getStartup({ id }) {
-      if (startupList.find((item) => (item.id = id))) {
-        return startupList.find((item) => (item.id = id));
-      }
-      return {};
-    },
+    stages: () => stageList,
+    stage: ({ id }) => stageList.find((item) => item.id == id),
+
+    steps: () => stepList,
+    step: ({ id }) => stepList.find((item) => item.id == id),
   },
 
   Mutation: {
-    addStartup: ({ data }) => {
-      let newData = { ...data, id: startupList.length + 1 };
-      console.log(newData);
+    createStartup: (parent, { data }, context) => {
+      console.log(data);
+      let newData = { ...data, id: nanoid() };
       startupList.push(newData);
       return newData;
     },
+    updateStartup: (parent, { id, data }) => {
+      let index = -1;
+      let record = startupList.filter((item, key) => {
+        let match = item.id == id;
+        if (match) {
+          index = key;
+        }
+        return match;
+      });
+      startupList[index] = { ...record[0], ...data };
+      return startupList[index];
+    },
+    removeStartup: (parent, { id }) => {
+      return startupList = startupList.filter((item) => item.id != id);
+    },
+    createStartupProgress: ({ data }) => {},
+    removeStartupProgress: ({ id }) => {},
   },
 
-  Startup: {
-    options: () => {
-      return [
-        {
-          name: "AKL",
-        },
-      ];
-    },
-  },
+  Startup: {},
 };
 
 module.exports = resolvers;
