@@ -1,34 +1,37 @@
-const startupList = [
- {
-    id: 1,
-    logo: "logo1",
-    name: "test name",
-    description: "test description",
-    date_established: "23-03-2022"
- },
- {
-    id: 2,
-    logo: "logo2",
-    name: "test name2",
-    description: "test description2",
-    date_established: "23-03-2022"
- },
- {
-    id: 3,
-    logo: "logo3",
-    name: "test name3",
-    description: "test description3",
-    date_established: "23-03-2022"
- }
-
-];
+const { startupList, stageList, stepList } = require("../data-source");
 
 const resolvers = {
-  
-    fetchStartups:()=>{
-       return startupList;
-    }
+  Query: {
+    fetchStartups: () => {
+      return startupList;
+    },
 
+    getStartup({ id }) {
+      if (startupList.find((item) => (item.id = id))) {
+        return startupList.find((item) => (item.id = id));
+      }
+      return {};
+    },
+  },
+
+  Mutation: {
+    addStartup: ({ data }) => {
+      let newData = { ...data, id: startupList.length + 1 };
+      console.log(newData);
+      startupList.push(newData);
+      return newData;
+    },
+  },
+
+  Startup: {
+    options: () => {
+      return [
+        {
+          name: "AKL",
+        },
+      ];
+    },
+  },
 };
 
 module.exports = resolvers;
