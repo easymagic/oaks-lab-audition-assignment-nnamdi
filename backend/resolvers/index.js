@@ -1,9 +1,3 @@
-let {
-  startupList,
-  stageList,
-  stepList,
-  startupProgress,
-} = require("../data-source");
 const { nanoid } = require("nanoid");
 const { Stage, Step, Startup } = require("../models");
 
@@ -96,7 +90,7 @@ const resolvers = {
       return Startup.create(data);
     },
     updateStartup: (parent, { id, data }) => {
-      return Startup.find(id).update(data);  
+      return Startup.find(id).update(data);
     },
     removeStartup: (parent, { id }) => {
       return Startup.find(id).remove();
@@ -130,6 +124,9 @@ const resolvers = {
     steps: (parent, arg, context) => {
       return parent.steps();
     },
+    previousStage:(parent,arg,context)=>{
+      return parent.previousStage();  
+    }
   },
 };
 

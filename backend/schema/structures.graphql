@@ -12,6 +12,8 @@
      id: String
      name: String!
      steps: [Step]
+     position: Int
+     previousStage: Stage
    }
 
    type Step{
@@ -27,6 +29,7 @@
       step_id: Int!
       step: Step
       startup: Startup
+      stage_id: Int
    }
 
    enum StartupType{
@@ -47,6 +50,7 @@
       id: String
       startup_id: Int!
       step_id: Int!
+      stage_id: Int!
    }
 
    type Query{
