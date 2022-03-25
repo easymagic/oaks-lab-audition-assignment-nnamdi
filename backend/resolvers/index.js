@@ -1,5 +1,5 @@
 const { nanoid } = require("nanoid");
-const { Stage, Step, Startup } = require("../models");
+const { Stage, Step, Startup , StartupProgress } = require("../models");
 
 Startup.factory((builder) => {
   Startup.create({
@@ -96,10 +96,7 @@ const resolvers = {
       return Startup.find(id).remove();
     },
     createStartupProgress: (parent, { data }) => {
-      console.log(data);
-      let newData = { ...data, id: nanoid() };
-      startupProgress.push(newData);
-      return newData;
+      return StartupProgress.addProgress(data);  
     },
     removeStartupProgress: (parent, { id }) => {
       return (startupProgress = startupProgress.filter(
@@ -112,8 +109,13 @@ const resolvers = {
     progress: (parent, args, context) => {},
   },
   StartupProgress: {
-    startup: (parent, args, context) => {},
-    step: (parent, args, context) => {},
+    startup: (parent, args, context) => {
+        return parent.startup();
+    },
+    step: (parent, args, context) => {
+        return parent.step();
+    },
+    stage: (parent,args,context)=>parent.stage()
   },
   Step: {
     stage: (parent, arg, context) => {

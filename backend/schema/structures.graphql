@@ -25,11 +25,12 @@
 
    type StartupProgress{
       id: String
-      startup_id: Int!
-      step_id: Int!
+      startup_id: String!
+      step_id: String!
       step: Step
       startup: Startup
-      stage_id: Int
+      stage_id: String
+      stage: Stage
    }
 
    enum StartupType{
@@ -48,9 +49,9 @@
 
    input StartupProgressInput{
       id: String
-      startup_id: Int!
-      step_id: Int!
-      stage_id: Int!
+      startup_id: String!
+      step_id: String!
+      stage_id: String!
    }
 
    type Query{
