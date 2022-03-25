@@ -24,3 +24,4 @@ StartupProgress
 id
 startup_id
 step_id
+stage_id
