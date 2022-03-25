@@ -39,29 +39,15 @@ class Model {
     return this.collection.find((item) => item.id == id);
   }
 
-  static findIndex() {
-    let index = -1;
-    this.collection.filter((item, key) => {
-      let check = item.id == id;
-      if (check) {
-        index = key;
-      }
-      return check;
-    });
-    return index;
-  }
-
   update(data) {
     for (let key in data) {
       this[key] = data[key];
     }
-    let index = this.findIndex(this.id);
-    this.collection[index] = this;
     return this;
   }
 
   remove() {
-    this.collection = this.collection.filter((item) => item.id != this.id);
+    return this.constructor.collection = this.constructor.collection.filter((item) => item.id != this.id);
   }
 
   static factory(cb) {

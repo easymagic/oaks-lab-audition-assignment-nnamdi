@@ -93,25 +93,13 @@ const resolvers = {
 
   Mutation: {
     createStartup: (parent, { data }, context) => {
-      console.log(data);
-      let newData = { ...data, id: nanoid() };
-      startupList.push(newData);
-      return newData;
+      return Startup.create(data);
     },
     updateStartup: (parent, { id, data }) => {
-      let index = -1;
-      let record = startupList.filter((item, key) => {
-        let match = item.id == id;
-        if (match) {
-          index = key;
-        }
-        return match;
-      });
-      startupList[index] = { ...record[0], ...data };
-      return startupList[index];
+      return Startup.find(id).update(data);  
     },
     removeStartup: (parent, { id }) => {
-      return (startupList = startupList.filter((item) => item.id != id));
+      return Startup.find(id).remove();
     },
     createStartupProgress: (parent, { data }) => {
       console.log(data);
@@ -126,21 +114,23 @@ const resolvers = {
     },
   },
 
-  Startup: {},
+  Startup: {
+    progress: (parent, args, context) => {},
+  },
+  StartupProgress: {
+    startup: (parent, args, context) => {},
+    step: (parent, args, context) => {},
+  },
   Step: {
     stage: (parent, arg, context) => {
       return parent.stage();
     },
   },
-  Stage:{
-      steps: (parent,arg,context)=>{
-        //   throw {
-        //       message:'Something just happened here right now!',
-        //       erroor : true
-        //   };
-          return parent.steps();
-      }
-  }
+  Stage: {
+    steps: (parent, arg, context) => {
+      return parent.steps();
+    },
+  },
 };
 
 module.exports = resolvers;

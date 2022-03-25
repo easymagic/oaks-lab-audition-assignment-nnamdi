@@ -26,6 +26,7 @@
       startup_id: Int!
       step_id: Int!
       step: Step
+      startup: Startup
    }
 
    enum StartupType{

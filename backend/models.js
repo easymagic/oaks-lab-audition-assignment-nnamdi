@@ -39,11 +39,11 @@ class Step extends Model {
 
 class StartupProgress extends Model{
   
-    constructor(){
-        super();
+    constructor({startup_id,step_id}){
+        super({startup_id,step_id});
     }
 
-    
+
 
 }
 
