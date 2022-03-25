@@ -132,6 +132,15 @@ const resolvers = {
       return parent.stage();
     },
   },
+  Stage:{
+      steps: (parent,arg,context)=>{
+        //   throw {
+        //       message:'Something just happened here right now!',
+        //       erroor : true
+        //   };
+          return parent.steps();
+      }
+  }
 };
 
 module.exports = resolvers;

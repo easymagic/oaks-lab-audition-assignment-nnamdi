@@ -1,5 +1,11 @@
+const { Model } = require("./model-base/Model");
 
-const { Model } = require("./models/Model");
+class Startup extends Model {
+  static collection = [];
+  constructor({ name, description, logo, date_established }) {
+    super({ name, description, logo, date_established });
+  }
+}
 
 class Stage extends Model {
   static collection = [];
@@ -20,13 +26,6 @@ class Stage extends Model {
   }
 }
 
-class Startup extends Model {
-  static collection = [];
-  constructor({ name, description, logo, date_established }) {
-    super({ name, description, logo, date_established });
-  }
-}
-
 class Step extends Model {
   static collection = [];
   constructor({ name, stage_id }) {
@@ -38,7 +37,18 @@ class Step extends Model {
   }
 }
 
+class StartupProgress extends Model{
+  
+    constructor(){
+        super();
+    }
 
-module.exports = {Step,Stage,Startup};
+    
+
+}
+
+
+
+module.exports = { Step, Stage, Startup };
 // console.log(Stage);
 // module.exports.Stage = Stage;

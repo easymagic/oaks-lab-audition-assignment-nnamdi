@@ -11,6 +11,7 @@
    type Stage{
      id: String
      name: String!
+     steps: [Step]
    }
 
    type Step{
