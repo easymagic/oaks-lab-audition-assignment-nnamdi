@@ -106,7 +106,7 @@ const resolvers = {
   },
 
   Startup: {
-    progress: (parent, args, context) => {},
+    progress: (parent, args, context) => parent.progress(),
   },
   StartupProgress: {
     startup: (parent, args, context) => {

@@ -5,6 +5,11 @@ class Startup extends Model {
   constructor({ name, description, logo, date_established }) {
     super({ name, description, logo, date_established });
   }
+
+  progress(){
+      return StartupProgress.findBy('startup_id',this.id);
+  }
+
 }
 
 class Stage extends Model {
@@ -83,6 +88,9 @@ class StartupProgress extends Model {
     let currentStage = Stage.find(stage_id);
     if (!currentStage.hasStep(step_id)){
       throw "Invalid step selection (selected step does not belong to the current stage)!";
+    }
+    if (this.exists(startup_id,step_id)){
+       throw "Progress already added!";
     }
     return this.create({ startup_id, step_id, stage_id });
   }
