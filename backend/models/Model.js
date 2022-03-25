@@ -1,7 +1,7 @@
 const { nanoid } = require("nanoid");
 
 class Model {
-  static collection = [];
+  // static collection = {};
 
   constructor(data) {
     for (let key in data) {
@@ -10,25 +10,38 @@ class Model {
     this.id = nanoid();
   }
 
+  static initCollection(tag){
+    // if (!.collection[tag])Model.collection[tag]=[];
+    this.collection = [];
+  }
+
   static all(){
-      return Model.collection;
+      // this.initCollection(tag); 
+      return this.collection;
+  }
+
+  static findBy(k,v){
+      return this.collection.filter(item=>item[k] == v);
   }
 
   static create(data) {
-    return new this(data);
+    let obj = new this(data);
+    this.append(obj);
+    return obj;
   }
 
   static append(data){
-    Model.collection.push(data);
+    this.collection.push(data);
+    // console.log(this.collection);
   }
 
   static find(id) {
-    return Model.collection.find((item) => item.id == id);
+    return this.collection.find((item) => item.id == id);
   }
 
   static findIndex() {
     let index = -1;
-    Model.collection.filter((item, key) => {
+    this.collection.filter((item, key) => {
       let check = item.id == id;
       if (check) {
         index = key;
@@ -42,13 +55,13 @@ class Model {
     for (let key in data) {
       this[key] = data[key];
     }
-    let index = Model.findIndex(this.id);
-    Model.collection[index] = this;
+    let index = this.findIndex(this.id);
+    this.collection[index] = this;
     return this;
   }
 
   remove() {
-    Model.collection = Model.collection.filter((item) => item.id != this.id);
+    this.collection = this.collection.filter((item) => item.id != this.id);
   }
 
   static factory(cb) {

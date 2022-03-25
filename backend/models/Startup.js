@@ -7,4 +7,4 @@ class Startup extends Model {
   }
 }
 
-module.exports = { Startup };
+module.exports = {Startup};
