@@ -1,4 +1,3 @@
-const { nanoid } = require("nanoid");
 const { Model } = require("../models/Model");
 
 class Startup extends Model {
